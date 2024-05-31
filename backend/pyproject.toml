@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Daniil <Dezmoynd@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+fastapi = {extras = ["all"], version = "^0.111.0"}
+fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
+sqlalchemy = "^2.0.30"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
