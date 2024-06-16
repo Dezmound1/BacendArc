@@ -12,8 +12,21 @@ services:
       - POSTGRES_PORT=${DB_PORT}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - "5432:5432" 
-  
+      - "5432:5432"
+    
+  db_test:
+    container_name: app_test
+    image: postgres:15
+    volumes:
+      - ./database_test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${TEST_DB_USER}
+      - POSTGRES_PASSWORD=${TEST_DB_PASS}
+      - POSTGRES_PORT=${TEST_DB_PORT}
+      - POSTGRES_DB=${TEST_DB_NAME}
+    ports:
+      - "6000:5432" 
+
   api:
     container_name: api
     build: ./backend
@@ -26,11 +39,23 @@ services:
       - DB_PASS=${DB_PASS}
       - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=db
       - SECRET_AUTH=${SECRET_AUTH}
+      - TEST_DB_USER=${TEST_DB_USER}
+      - TEST_DB_PASS=${TEST_DB_PASS}
+      - TEST_DB_PORT=5432
+      - TEST_DB_NAME=${TEST_DB_NAME}
+      - TEST_DB_HOST=db_test
     depends_on:
       - db
+      - db_test
 
-  
-volumes:
-  database:
+  service:
+    container_name: service
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./service:/app

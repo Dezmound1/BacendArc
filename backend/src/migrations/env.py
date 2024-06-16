@@ -15,6 +15,7 @@ from src.model.user import *
 from src.model.answer import *
 
 from src.db.pg import Base
+from tests.conftest import metadata
 
 config = context.config
 config.set_main_option("sqlalchemy.url", SQLALCHEMY_ASYNC_DATABASE_URL)
@@ -23,7 +24,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-target_metadata = Base.metadata
+target_metadata = [Base.metadata, metadata]
 
 
 def run_migrations_offline() -> None:

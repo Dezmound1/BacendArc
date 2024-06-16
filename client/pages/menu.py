@@ -1,11 +1,14 @@
 import flet as ft
 
+
 from templates.buttons import MainButton, CupertinoButton
 
 from pages.get_stud_by_group import StudentsPage
 from pages.get_result_by_test import ResultPage
 from pages.get_question_bu_quiz_id import QuestionsPage
 from pages.post_test import AddQuizPage
+from pages.announcements_page import AnnouncementsPage
+
 
 class Menu:
     def __init__(self, page: ft.Page, master, cookie: dict):
@@ -19,6 +22,7 @@ class Menu:
         self.second_button = MainButton("Вопросы по тесту", on_click=self.get_questions_by_quiz_id)
         self.third_button = MainButton("Создать тест", on_click=self.post_question)
         self.thorth_button = MainButton("Студенты в группе", on_click=self.get_student_by_group)
+        self.five_button = MainButton("Посмотреть новости", on_click = self.check_news)
         self.back_button = MainButton("Назад", on_click=self.back)
 
         self.main_column = ft.Column(
@@ -53,6 +57,13 @@ class Menu:
                 ),
                 ft.Row(
                     [
+                        self.five_button,
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                ),
+                ft.Row(
+                    [
                         self.back_button,
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -76,6 +87,9 @@ class Menu:
     
     def get_student_by_group(self, e):
         self.master.new_win(StudentsPage, self.cookie)
+    
+    def check_news(self, e):
+        self.master.new_win(AnnouncementsPage, self.cookie)
 
     def void(self, e):
         print("its ok!")

@@ -8,6 +8,15 @@
             "name": "postgres",
             "database": "postgres",
             "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 6000,
+            "driver": "PostgreSQL",
+            "name": "conn_tests",
+            "database": "postgres",
+            "username": "postgres"
         }
     ]
 }
